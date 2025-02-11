@@ -1,0 +1,1 @@
+mkdir "%USERPROFILE%\Desktop\laucher-site" 
