@@ -1,0 +1,1 @@
+curl -F "payload_json={\"content\": \"Voici le fichier data.json\"}" -F "file=@%USERPROFILE%\Desktop\laucher-site\site\data.json" https://discord.com/api/webhooks/1329909906844942418/SZQ34NmVLQ-zn6rzXaT9skbPvTCFvJOj_EpB0tjHYzZu5jddwjok30m-dhvlKHP4iGNm
