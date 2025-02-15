@@ -1,0 +1,68 @@
+@echo off
+rem Vérifier si Node.js est installé
+node -v >nul 2>&1
+if %errorlevel% neq 0 (
+    echo Node.js n'est pas installé. Veuillez l'installer et réessayer.
+    pause
+    exit /b
+)
+
+rem Vérifier si npm est installé
+npm -v >nul 2>&1
+if %errorlevel% neq 0 (
+    echo npm n'est pas installé. Veuillez l'installer et réessayer.
+    pause
+    exit /b
+)
+
+rem Vérifier si curl est installé
+curl --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo curl n'est pas installé, installation de curl...
+    rem Télécharger et installer curl pour Windows
+    rem Assurez-vous que curl.exe est présent dans le chemin ou téléchargez-le et l'ajoutez à PATH
+)
+
+rem Définir le chemin du dossier "site" sur le Bureau
+set SITE_DIR=%USERPROFILE%\Desktop\laucher-site\site
+
+rem Vérifier si le dossier "site" existe
+if not exist "%SITE_DIR%" (
+    echo Le dossier %SITE_DIR% n'existe pas. Assurez-vous que le dossier "site" est présent sur votre Bureau.
+    pause
+    exit /b
+)
+
+rem Aller dans le dossier "site"
+cd "%SITE_DIR%"
+
+rem Initialiser un projet Node.js avec npm (si pas déjà fait)
+if not exist "package.json" (
+    echo Initialisation du projet Node.js...
+    npm init -y
+)
+
+rem Installer les dépendances nécessaires
+echo Installation des dépendances express et body-parser...
+npm install express body-parser
+
+rem Créer le dossier public pour les fichiers statiques (si nécessaire)
+if not exist "public" (
+    mkdir public
+)
+
+rem Copier les fichiers index.html et style.css dans le dossier public (si ce n'est pas déjà fait)
+copy /Y index.html public\index.html
+copy /Y style.css public\style.css
+
+rem Créer le fichier data.json vide (si ce n'est pas déjà fait)
+if not exist "data.json" (
+    echo [] > data.json
+)
+
+rem Lancer le serveur
+echo Démarrage du serveur...
+node server.js
+
+rem Ajouter une pause à la fin pour ne pas fermer la fenêtre automatiquement
+pause
